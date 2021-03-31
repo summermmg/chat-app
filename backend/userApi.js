@@ -9,11 +9,11 @@ const addUserInRoom = (socketId,name,room) => {
 
     const found = users.find(user => user.id === socketId )
     if (found) {
-        res.status(400).json({ msg:'User already exists' })
+        return { error: 'User already exists'}
     }
     //else, add user to users list
     users.push({id: socketId, name, room}) 
-    return {user: {id: socketId, name, room}}
+    return {users: users.filter(user => user.room === room)}
 }
 
 const getUsersInRoom = (room) => {

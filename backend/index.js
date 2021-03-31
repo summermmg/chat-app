@@ -9,8 +9,7 @@ app.use(cors())
 app.use(require("./router"));
 
 
-io.on('connection', (socket) => {
-    
+io.on('connection', (socket) => {    
     console.log('a user connected');
 
     //fire the eventListener function when receive event emitted from client side
@@ -19,10 +18,10 @@ io.on('connection', (socket) => {
     socket.on('joinRoom', ({name,room}, callBack) => {
 
         //access all existing users as the time the user join in
-        const users = getUsersInRoom(room)
+        // const users = getUsersInRoom(room)
 
         //add user here
-        const {error,user} = addUserInRoom(socket.id,name,room)
+        const {error,users} = addUserInRoom(socket.id,name,room)
 
         //callback(error)
         if (error) {
@@ -32,14 +31,17 @@ io.on('connection', (socket) => {
 
             //if add user successful, emit 'message' event to frontend to show on message board
             socket.emit('message', {user: 'Room Admin', msg: `👋Hi ${name}, Welcome to room ${room}. You can chat now!`})
+            
+            // io.in(room).emit('UsersInRoom', users)
             socket.to(room).emit('message', {user: 'Room Admin', msg: `${name} has just joined in.😀`})
 
             socket.join(room)
 
             //after joined in, emit events of existing users and add current user
-            io.in(room).emit('ExistingUsersInRoom', users)            
-            io.in(room).emit('UsersInRoom', user)
+    
+            
         }
+        
     })
 
 
@@ -57,14 +59,15 @@ io.on('connection', (socket) => {
     //managing this specific socket just connected  
     socket.on('disconnect', () => {
         console.log('user disconnected');
-
-        let { room, name } = getUserById(socket.id)
-        //remove the left user from backend
-        deleteUser(socket.id);
+        let user = getUsersInRoom(socket.id)
+        let users = deleteUser(socket.id)
 
         //update to remove user in client side and send message to everyone in the room 
-        io.in(room).emit('UsersLeftRoom', socket.id)
-        socket.to(room).emit('message', {user:name, msg: `${name} has just left`})
+        // io.in(user.room).emit('UsersInRoom', users)
+        if (users) {
+            io.in(user.room).emit('message', {user:user.name, msg: `${user.name} has just left`})
+        }
+        
       });
 });
 

@@ -9,7 +9,7 @@ const NavBar = ({ room,users }) => {
                     <h5>🟢Room: {room}</h5>                    
                 </li>
                 <li className="nav-item">
-                    <h5>🙎🏼‍♂️Current users in room: {users.length}</h5>                    
+                    <h5>🙎🏼‍♂️Current users in room: </h5>                    
                 </li>
                 <li className="nav-item">
                     <Link to={'/'}>

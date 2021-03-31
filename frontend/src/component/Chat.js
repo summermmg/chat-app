@@ -3,6 +3,7 @@ import queryString from 'query-string'
 import io from 'socket.io-client'
 import TextBox from './TextBox'
 import NavBar from './NavBar'
+import MessageBoard from './MessageBoard'
 
 let socket
 const Chat = ({ location }) => {
@@ -38,57 +39,35 @@ const Chat = ({ location }) => {
             //In this case, show the returned error message on browser 
         })
 
-        // return () => {
-        //     socket.emit('disconnect')
-
-        //     socket.off()
-        // }
-
     }, [ENDPOINT,location.search])
 
     useEffect(() => {
-
-        socket.on('message', (data) => {
-            messages.push(data)
-            setMessages(messages)
-            console.log(messages)
+        //create a message event listener & 
+        socket.on('message', ( data ) => {
+            setMessages(messages => [...messages,data])            
+            socket.removeAllListeners('message')
         })
+                
+        
+        console.log(messages)    
 
-        //existing users only add once at the time of join
-        socket.on('ExistingUsersInRoom', ExistingUsers => {
-            if (users.length === 0 && ExistingUsers.length !== 0) {
-                ExistingUsers.map(el => (
-                    users.push(el)
-                ))                              
-               
-                setUsers(users)  
-            }
-        })  
-    
-        socket.on('UsersInRoom', newUser => {
-            users.push(newUser)
-            setUsers(users)  
-            console.log(users.length)
-        })  
-            
-        socket.on('UsersLeftRoom', id => {
-            let found = users.find(user => user.id === id) 
-            let index = users.indexOf(found)
-            users.splice(index,1)
-            setUsers(users)  
-            console.log(users)
-        })        
-    }, []) 
-          
+    },[messages]) 
+
+
 
     return (
         <div>
             <div className="chatOuterContainer">
                 <div className="chatInnerContainer">
-                    {/* <NavBar 
+                    <NavBar 
                         room={room}    
                         users={users} 
-                    /> */}
+                    />
+
+                    <MessageBoard 
+                        messages={messages}
+                        name={name}
+                    />
                     <TextBox  
                         message={message}
                         setMessage={setMessage}
