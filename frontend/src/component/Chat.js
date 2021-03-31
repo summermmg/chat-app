@@ -14,7 +14,7 @@ const Chat = ({ location,history }) => {
     const [users, setUsers] = useState([]) 
 
 
-    const ENDPOINT = "localhost:5000, https://chat-app-demo0.herokuapp.com"
+    const ENDPOINT = "https://chat-app-demo0.herokuapp.com"
 
 
     useEffect(() => {
@@ -25,9 +25,9 @@ const Chat = ({ location,history }) => {
 
         //create socket instance and pass endpoint to connect it to backend io server.
         var connectionOptions =  {
-            // "force new connection" : true,
-            // "reconnectionAttempts": "Infinity", 
-            // "timeout" : 10000,                  
+            "force new connection" : true,
+            "reconnectionAttempts": "Infinity", 
+            "timeout" : 10000,                  
             "transports" : ["websocket"]
         };
         socket = io(ENDPOINT,connectionOptions)
