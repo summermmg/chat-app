@@ -1,13 +1,17 @@
 const express = require('express');
 const app = express()
+const path = require('path');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const cors = require('cors');
 const { addUserInRoom, getUsersInRoom, getUserById, deleteUser } = require('./userApi')
 app.use(cors())
 //import and call as middleware  
-app.use(require("./router"));
-
+// app.use(require("./router"));
+app.use(express.static(path.join(__dirname, 'frontend/build')));
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, 'frontend/build', 'frontend/index.html'));
+  });
 
 io.on('connection', (socket) => {    
     console.log('a user connected');
