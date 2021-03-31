@@ -1,9 +1,12 @@
 import React from 'react'
 
 const TextBox = ({ message, setMessage,room,socket }) => {
-    const onSendHandler = () => {
+    const onSendHandler = (event) => {
+        event.preventDefault();
         //after emit sendMessage event, run the callback function 
-        socket.emit('createMessage', {room, message}, ()=> setMessage(''))
+        if (message !== '') {
+            socket.emit('createMessage', {room, message}, ()=> setMessage(''))
+        }        
     }
 
     return (
@@ -14,6 +17,7 @@ const TextBox = ({ message, setMessage,room,socket }) => {
                 placeholder="Type a message" 
                 value={message}
                 onChange={e => setMessage(e.target.value)}
+                onKeyPress={event => event.key === 'Enter' ? onSendHandler(event) : null}
                 required
             />
             <button type="button" className="btn btn-primary" onClick={onSendHandler} >Send</button>

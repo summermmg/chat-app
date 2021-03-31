@@ -6,7 +6,7 @@ import NavBar from './NavBar'
 import MessageBoard from './MessageBoard'
 
 let socket
-const Chat = ({ location }) => {
+const Chat = ({ location,history }) => {
     const [name, setName] = useState('')
     const [room, setRoom] = useState('')
     const [message, setMessage] = useState('')
@@ -16,6 +16,7 @@ const Chat = ({ location }) => {
 
     const ENDPOINT = "localhost:5000"
 
+
     useEffect(() => {
         //destructure name and room for later use as emit event parameters 
         const {name,room} = queryString.parse(location.search)
@@ -24,9 +25,9 @@ const Chat = ({ location }) => {
 
         //create socket instance and pass endpoint to connect it to backend io server.
         var connectionOptions =  {
-            "force new connection" : true,
-            "reconnectionAttempts": "Infinity", 
-            "timeout" : 10000,                  
+            // "force new connection" : true,
+            // "reconnectionAttempts": "Infinity", 
+            // "timeout" : 10000,                  
             "transports" : ["websocket"]
         };
         socket = io(ENDPOINT,connectionOptions)
@@ -34,26 +35,29 @@ const Chat = ({ location }) => {
         //after create the socket instance, we want to emit the 'join' event to io server 
         //the 'joinRoom' event includes two parameters: object {name,room} and cb   
         socket.emit('joinRoom', {name,room}, (error) => {
-            alert(error)
+            history.push('/')
+            alert(error)            
             //cb(fired once the callBack function in eventListener completed)
             //In this case, show the returned error message on browser 
         })
 
+        socket.on('message', ( data ) => {
+            setMessages(messages => [...messages,data])               
+        })  
+
+        return () => {
+            socket.off()
+        }
+
     }, [ENDPOINT,location.search])
 
+
     useEffect(() => {
-        //create a message event listener & 
-        socket.on('message', ( data ) => {
-            setMessages(messages => [...messages,data])            
-            socket.removeAllListeners('message')
-        })
-                
-        
-        console.log(messages)    
-
-    },[messages]) 
-
-
+        socket.on('UsersInRoom', (data) => (
+            setUsers(data)
+        ))
+        console.log(users)
+    },[users])
 
     return (
         <div>
@@ -62,6 +66,8 @@ const Chat = ({ location }) => {
                     <NavBar 
                         room={room}    
                         users={users} 
+                        name={name}
+                        socket={socket}
                     />
 
                     <MessageBoard 

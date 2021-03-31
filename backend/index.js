@@ -17,9 +17,6 @@ io.on('connection', (socket) => {
     //we can access socket.id now
     socket.on('joinRoom', ({name,room}, callBack) => {
 
-        //access all existing users as the time the user join in
-        // const users = getUsersInRoom(room)
-
         //add user here
         const {error,users} = addUserInRoom(socket.id,name,room)
 
@@ -30,27 +27,19 @@ io.on('connection', (socket) => {
         } else {
 
             //if add user successful, emit 'message' event to frontend to show on message board
-            socket.emit('message', {user: 'Room Admin', msg: `👋Hi ${name}, Welcome to room ${room}. You can chat now!`})
-            
-            // io.in(room).emit('UsersInRoom', users)
+            socket.emit('message',{user: 'Room Admin', msg: `👋Hi ${name}, Welcome to room ${room}. You can chat now!`})      
             socket.to(room).emit('message', {user: 'Room Admin', msg: `${name} has just joined in.😀`})
-
-            socket.join(room)
-
-            //after joined in, emit events of existing users and add current user
-    
-            
-        }
-        
+            socket.to(room).emit('UsersInRoom', users)
+            socket.emit('UsersInRoom', users)
+            socket.join(room)              
+        }       
     })
 
 
     socket.on('createMessage', ({room,message}, callBack) => {
-
         let user = getUserById(socket.id)
         //sending to all clients in the room, including sender
-        io.in(room).emit('message', {user:user.name, msg: message})
-        
+        io.in(room).emit('message', {user:user.name, msg: message})                
         //reset create message box
         callBack()
     })
@@ -59,19 +48,12 @@ io.on('connection', (socket) => {
     //managing this specific socket just connected  
     socket.on('disconnect', () => {
         console.log('user disconnected');
-        let user = getUsersInRoom(socket.id)
+        let user = getUserById(socket.id)
         let users = deleteUser(socket.id)
-
-        //update to remove user in client side and send message to everyone in the room 
-        // io.in(user.room).emit('UsersInRoom', users)
-        if (users) {
-            io.in(user.room).emit('message', {user:user.name, msg: `${user.name} has just left`})
-        }
-        
-      });
+        socket.to(user.room).emit('message', {user:'Room Admin', msg: `${user.name} has just left`})
+        socket.to(user.room).emit('UsersInRoom', users)        
+    });
 });
-
-
 
 const PORT = process.env.PORT || 5000;
 http.listen(PORT, () => {

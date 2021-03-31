@@ -2,15 +2,16 @@
 const users = []
 
 const addUserInRoom = (socketId,name,room) => {
+    name = name.trim().toLowerCase();
+    room = room.trim().toLowerCase();
 
     if(!name || !room) {
         return { error: 'Username and room are required.' }
     }
 
-    const found = users.find(user => user.id === socketId )
-    if (found) {
-        return { error: 'User already exists'}
-    }
+    const existingUser = users.find((user) => user.room === room && user.name === name);
+    if(existingUser) return { error: 'Username is taken in this room.' };
+
     //else, add user to users list
     users.push({id: socketId, name, room}) 
     return {users: users.filter(user => user.room === room)}
