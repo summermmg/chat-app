@@ -14,7 +14,7 @@ const Chat = ({ location,history }) => {
     const [users, setUsers] = useState([]) 
 
 
-    const ENDPOINT = "localhost:5000"
+    const ENDPOINT = "localhost:5000, https://chat-app-demo0.herokuapp.com"
 
 
     useEffect(() => {
