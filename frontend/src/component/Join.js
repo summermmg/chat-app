@@ -8,7 +8,7 @@ const Join = () => {
     return (
         <div className="homeOuterContainer">
             <div className="homeInnerContainer">
-                <h2 className="">Join in to Chat!</h2>
+                <h2 className="title">Join in to Chat!</h2>
                 <form>
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Name</label>
@@ -36,7 +36,7 @@ const Join = () => {
 
                     {/* set querystring to target */}
                     <Link to={`/chat?name=${name}&room=${room}`}>
-                        <button type="button" className="btn btn-primary">Join In</button>
+                        <button type="button" className="button-join">Join In</button>
                     </Link>
                 </form>
             </div>    

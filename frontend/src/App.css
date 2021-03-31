@@ -14,6 +14,18 @@
     border-radius: 15px;
 }
 
+.button-join {
+    margin: 10px;
+    padding: 8px;
+    background-color: black;
+    color: white;
+    border: 5px;
+    border-color: black;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 /* Chat */
 .chatOuterContainer {
     width: 100vw;
@@ -38,9 +50,6 @@
     margin-right: 3rem;
 }
 
-.navbar-list {
-    z-index: 100;
-}
 
 /* Input box */
 .text-box {
@@ -76,9 +85,8 @@ color: #FFFFFF;
 }
 
 /* MassageBoard */
-
 .messageboard {
-    max-height: 85%;
+    max-height: 80%;
     overflow: auto;
     display: flex;
     flex-direction: column;
@@ -112,4 +120,130 @@ color: #FFFFFF;
 .left {
     display: flex;
     justify-content: flex-start;
+}
+
+@media screen and (max-width: 480px) {
+    .homeOuterContainer {
+        margin-top: 20vh;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .homeInnerContainer {
+        width: 70vw;
+        padding: 1rem;
+        font-size: 0.8rem;
+    }
+
+    .homeInnerContainer input {
+        height: 2.2rem;
+    }
+
+    /* Chat */
+    .chatOuterContainer {
+        margin: 0;
+    }
+
+    .chatInnerContainer {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    /* NavBar */
+    .nav li {
+        margin-right: 1rem;        
+    }
+
+    .nav h5 {
+        font-size: 0.8rem;
+    }
+
+    .nav button {
+        font-size: 0.7rem;
+    }
+
+    /* Input box */
+    .text-box {
+        height: 7%;
+    }
+
+    /* MassageBoard */
+    .messagebox {
+        margin-bottom: 5px;
+        margin-top: 5px;
+        margin-right: 8px;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    /* Chat */
+    .chatOuterContainer {
+        margin: 0;
+    }
+
+    .chatInnerContainer {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    /* NavBar */
+    .nav li {
+        margin-right: 2rem;        
+    }
+
+    .nav h5 {
+        font-size: 1rem;
+    }
+
+    .nav button {
+        font-size: 0.7rem;
+    }
+
+    /* Input box */
+    .text-box {
+        height: 9%;
+    }
+    /* MassageBoard */
+    .messagebox {
+        margin-bottom: 5px;
+        margin-top: 5px;
+        margin-right: 8px;
+    }
+
+}
+
+@media screen and (max-width: 1024px) {
+    /* NavBar */
+    .nav li {
+        margin-right: 2rem;
+    }
+
+    .nav h5 {
+        font-size: 1rem;
+    }
+
+    .nav button {
+        font-size: 0.7rem;
+    }
+
+    /* MassageBoard */
+    .messageboard {
+        max-height: 77%;
+    }
+    .messagebox {
+        margin-bottom: 10px;
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    /* MassageBoard */
+    .messageboard {
+        max-height: 75%;
+    }
 }

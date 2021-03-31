@@ -8,6 +8,7 @@ const { addUserInRoom, getUsersInRoom, getUserById, deleteUser } = require('./us
 app.use(cors())
 //import and call as middleware  
 // app.use(require("./router"));
+
 app.use(express.static(path.join(__dirname, 'frontend/build')));
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'frontend/build', 'frontend/index.html'));
