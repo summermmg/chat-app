@@ -42,4 +42,4 @@ const deleteUser = (socketId) => {
     }
 }
 
-module.exports = { addUserInRoom, getUsersInRoom, getUserById, deleteUser };
+module.exports = { addUserInRoom, getUserById, deleteUser };
