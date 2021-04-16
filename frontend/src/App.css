@@ -112,13 +112,16 @@ color: #FFFFFF;
 }
 
 .right {
+    display: -webkit-flex;
     display: flex;
+    -webkit-justify-content: flex-end;
     justify-content: flex-end;
-
 }
 
 .left {
+    display: -webkit-flex;
     display: flex;
+    -webkit-justify-content: flex-start;
     justify-content: flex-start;
 }
 
@@ -167,7 +170,7 @@ color: #FFFFFF;
 
     /* Input box */
     .text-box {
-        height: 7%;
+        height: 5%;
     }
 
     /* MassageBoard */
@@ -231,9 +234,9 @@ color: #FFFFFF;
     }
 
     /* MassageBoard */
-    .messageboard {
+    /* .messageboard {
         max-height: 77%;
-    }
+    } */
     .messagebox {
         margin-bottom: 10px;
         margin-top: 10px;
@@ -244,6 +247,6 @@ color: #FFFFFF;
 @media screen and (max-width: 1200px) {
     /* MassageBoard */
     .messageboard {
-        max-height: 75%;
+        max-height: 76%;
     }
 }

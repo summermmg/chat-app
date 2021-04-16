@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 const MessageBoard = ({ messages, name }) => {
     return (
         <ScrollToBottom className="messageboard">
-          
+                      
             {messages.map(message => (
                 
                 message.user !== name 
@@ -27,7 +27,6 @@ const MessageBoard = ({ messages, name }) => {
                 
             )                        
             )}
-
 
         </ScrollToBottom>
     )

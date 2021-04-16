@@ -4,7 +4,7 @@ const path = require('path');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const cors = require('cors');
-const { addUserInRoom, getUsersInRoom, getUserById, deleteUser } = require('./userApi')
+const { addUserInRoom, getUserById, deleteUser } = require('./userApi')
 app.use(cors())
 //import and call as middleware  
 // app.use(require("./router"));

@@ -2,14 +2,14 @@
 const users = []
 
 const addUserInRoom = (socketId,name,room) => {
-    name = name.trim().toLowerCase();
-    room = room.trim().toLowerCase();
+    name1 = name.trim().toLowerCase();
+    room1 = room.trim().toLowerCase();
 
     if(!name || !room) {
         return { error: 'Username and room are required.' }
     }
 
-    const existingUser = users.find((user) => user.room === room && user.name === name);
+    const existingUser = users.find((user) => user.room === room1 && user.name === name1);
     if(existingUser) return { error: 'Username is taken in this room.' };
 
     //else, add user to users list
@@ -17,10 +17,10 @@ const addUserInRoom = (socketId,name,room) => {
     return {users: users.filter(user => user.room === room)}
 }
 
-const getUsersInRoom = (room) => {
+// const getUsersInRoom = (room) => {
 
-    return users.filter(user => user.room === room)
-}
+//     return users.filter(user => user.room === room)
+// }
 
 const getUserById = (socketId) => {
     const found = users.find(user => user.id === socketId )

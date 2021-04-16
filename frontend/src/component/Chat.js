@@ -15,6 +15,7 @@ const Chat = ({ location,history }) => {
 
 
     const ENDPOINT = "https://chat-app-demo0.herokuapp.com"
+    // const ENDPOINT = "http://localhost:5000"
 
 
     useEffect(() => {
@@ -42,22 +43,20 @@ const Chat = ({ location,history }) => {
         })
 
         socket.on('message', ( data ) => {
-            setMessages(messages => [...messages,data])               
-        })  
-
+            setMessages(msg => [...msg,data])               
+        }) 
+        
         return () => {
             socket.off()
         }
 
-    }, [ENDPOINT,location.search])
-
+    }, [ENDPOINT,location.search, history])
 
     useEffect(() => {
         socket.on('UsersInRoom', (data) => (
             setUsers(data)
         ))
-        console.log(users)
-    },[users])
+    },[])
 
     return (
         <div>
@@ -82,7 +81,6 @@ const Chat = ({ location,history }) => {
                     />
                 </div>
             </div>
-
         </div>
     )
 }

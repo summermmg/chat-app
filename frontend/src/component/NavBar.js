@@ -21,11 +21,11 @@ const NavBar = ({ room, name, users, socket }) => {
                 </li>
 
                 <li className="nav-item dropdown">
-                    <button className="btn btn-light btn-sm dropdown-toggle mb-2" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">👀 See who's in the room</button>
+                    <button className="btn btn-light btn-sm dropdown-toggle mb-2" data-bs-toggle="dropdown" href="#" aria-expanded="false">👀 See who's in the room</button>
                     <ul className="dropdown-menu">
                         {
                             users.map(user => (
-                                <li className="dropdown-item">{user.name}</li>
+                                <li key={user.id} className="dropdown-item">{user.name}</li>
                             )) 
                         }
                     </ul>
