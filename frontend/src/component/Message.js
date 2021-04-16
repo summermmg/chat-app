@@ -5,14 +5,14 @@ const Message = ({ message, right }) => {
         <div className="messageInnerboard">
             {right ? (
                 <div className="right">
-                    <div className="messagebox">
+                    <div className="alert alert-dark">
                         <span>{message.user}: </span>
                         {message.msg}
                     </div>
                 </div>
             ) : (
                 <div className="left">
-                    <div className="messagebox">
+                    <div className="alert alert-dark">
                         <span>{message.user}: </span>
                         {message.msg}
                     </div>
