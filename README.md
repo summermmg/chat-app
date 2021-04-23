@@ -11,7 +11,7 @@
 
 [View Live Demo](https://chat-app-demo0.herokuapp.com)  
 A web application that allows users to invite multiple friends to chat in real time.
-<div align="center"><img src="/frontend/public/assets/chatAppVideo.gif" width="70%"  /></div>
+<div align="center"><img src="/frontend/public/assets/chatAppVideo.gif" width="90%"  /></div>
 
 ## Technologies
 * express version: 4.17.1
